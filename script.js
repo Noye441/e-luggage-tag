@@ -112,10 +112,8 @@ function formatPrice(num) {
 
 function addCurrentProductToCart() {
   const messageEl = document.getElementById("cartMessage");
-
   const color = "Midnight Black";
   const model = "Standard";
-
   const cart = getCart();
 
   const existing = cart.find(
@@ -201,18 +199,82 @@ function setupProductGallery() {
       const image = button.getAttribute("data-image");
       const alt = button.getAttribute("data-alt");
 
-      if (image) {
-        mainImage.src = image;
-      }
-
-      if (alt) {
-        mainImage.alt = alt;
-      }
+      if (image) mainImage.src = image;
+      if (alt) mainImage.alt = alt;
 
       thumbButtons.forEach((btn) => btn.classList.remove("active-thumb"));
       button.classList.add("active-thumb");
     });
   });
+}
+
+function getRouteCodes(routeText) {
+  if (!routeText) {
+    return {
+      departureCode: "---",
+      arrivalCode: "---"
+    };
+  }
+
+  const normalized = routeText.replace(/\s+/g, " ").trim();
+  let parts = [];
+
+  if (normalized.includes("→")) {
+    parts = normalized.split("→");
+  } else if (normalized.includes("->")) {
+    parts = normalized.split("->");
+  } else if (normalized.includes("-")) {
+    parts = normalized.split("-");
+  }
+
+  parts = parts.map((part) => part.trim());
+
+  return {
+    departureCode: parts[0] || "---",
+    arrivalCode: parts[1] || "---"
+  };
+}
+
+function updateMainDashboardTracking(tagId) {
+  const tag = getTagData(tagId);
+  if (!tag) return;
+
+  const routeCodes = getRouteCodes(tag.route);
+
+  const dashTagId = document.getElementById("dashTagId");
+  const dashFlight = document.getElementById("dashFlight");
+  const dashRoute = document.getElementById("dashRoute");
+  const dashDeparture = document.getElementById("dashDeparture");
+  const dashStatus = document.getElementById("dashStatus");
+  const dashGate = document.getElementById("dashGate");
+  const dashBaggage = document.getElementById("dashBaggage");
+  const dashDepartureCode = document.getElementById("dashDepartureCode");
+  const dashArrivalCode = document.getElementById("dashArrivalCode");
+
+  if (dashTagId) dashTagId.textContent = tag.tagId;
+  if (dashFlight) dashFlight.textContent = tag.flight;
+  if (dashRoute) dashRoute.textContent = tag.route;
+  if (dashDeparture) dashDeparture.textContent = tag.departure;
+  if (dashStatus) dashStatus.textContent = tag.status;
+  if (dashGate) dashGate.textContent = tag.gate;
+  if (dashBaggage) dashBaggage.textContent = tag.baggage;
+  if (dashDepartureCode) dashDepartureCode.textContent = routeCodes.departureCode;
+  if (dashArrivalCode) dashArrivalCode.textContent = routeCodes.arrivalCode;
+}
+
+function updateOtherTagTracking(tag) {
+  const routeCodes = getRouteCodes(tag.route);
+
+  document.getElementById("otherOwner").textContent = tag.owner;
+  document.getElementById("otherTagId").textContent = tag.tagId;
+  document.getElementById("otherFlight").textContent = tag.flight;
+  document.getElementById("otherRoute").textContent = tag.route;
+  document.getElementById("otherDeparture").textContent = tag.departure;
+  document.getElementById("otherStatus").textContent = tag.status;
+  document.getElementById("otherGate").textContent = tag.gate;
+  document.getElementById("otherBaggage").textContent = tag.baggage;
+  document.getElementById("otherDepartureCode").textContent = routeCodes.departureCode;
+  document.getElementById("otherArrivalCode").textContent = routeCodes.arrivalCode;
 }
 
 const loginForm = document.getElementById("loginForm");
@@ -242,6 +304,10 @@ if (loginForm) {
 }
 
 const dashboardMarker = document.getElementById("customerName");
+const tagMessageForm = document.getElementById("tagMessageForm");
+const tagMessageInput = document.getElementById("tagMessageInput");
+const tagDisplayPreview = document.getElementById("tagDisplayPreview");
+const tagMessageStatus = document.getElementById("tagMessageStatus");
 
 if (dashboardMarker) {
   const user = getLoggedInUser();
@@ -249,8 +315,6 @@ if (dashboardMarker) {
   if (!user) {
     window.location.href = "login.html";
   } else {
-    const mainTag = getTagData(user.tagId || DEFAULT_USER.tagId);
-
     const customerName = document.getElementById("customerName");
     const profileNameDisplay = document.getElementById("profileNameDisplay");
     const customerEmail = document.getElementById("customerEmail");
@@ -263,37 +327,22 @@ if (dashboardMarker) {
     if (customerPhone) customerPhone.textContent = user.phone;
     if (customerTagNickname) customerTagNickname.textContent = user.tagNickname;
 
-    if (mainTag) {
-      const dashTagId = document.getElementById("dashTagId");
-      const dashFlight = document.getElementById("dashFlight");
-      const dashRoute = document.getElementById("dashRoute");
-      const dashDeparture = document.getElementById("dashDeparture");
-      const dashStatus = document.getElementById("dashStatus");
-      const dashGate = document.getElementById("dashGate");
-      const dashBaggage = document.getElementById("dashBaggage");
-
-      if (dashTagId) dashTagId.textContent = mainTag.tagId;
-      if (dashFlight) dashFlight.textContent = mainTag.flight;
-      if (dashRoute) dashRoute.textContent = mainTag.route;
-      if (dashDeparture) dashDeparture.textContent = mainTag.departure;
-      if (dashStatus) dashStatus.textContent = mainTag.status;
-      if (dashGate) dashGate.textContent = mainTag.gate;
-      if (dashBaggage) dashBaggage.textContent = mainTag.baggage;
-    }
+    updateMainDashboardTracking(user.tagId || DEFAULT_USER.tagId);
 
     const editName = document.getElementById("editName");
     const editPhone = document.getElementById("editPhone");
     const editTagNickname = document.getElementById("editTagNickname");
+    const editTagId = document.getElementById("editTagId");
 
     if (editName) editName.value = user.name;
     if (editPhone) editPhone.value = user.phone;
     if (editTagNickname) editTagNickname.value = user.tagNickname;
+    if (editTagId) editTagId.value = user.tagId || DEFAULT_USER.tagId;
 
-    const tagDisplayPreview = document.getElementById("tagDisplayPreview");
-    const tagMessageInput = document.getElementById("tagMessageInput");
+    const savedMessage = getTagDisplayMessage();
 
-    if (tagDisplayPreview) tagDisplayPreview.textContent = getTagDisplayMessage();
-    if (tagMessageInput) tagMessageInput.value = getTagDisplayMessage();
+    if (tagDisplayPreview) tagDisplayPreview.textContent = savedMessage;
+    if (tagMessageInput) tagMessageInput.value = savedMessage;
   }
 }
 
@@ -307,12 +356,24 @@ if (profileForm) {
     const currentUser = getLoggedInUser();
     if (!currentUser) return;
 
+    const inputTagId = document.getElementById("editTagId");
+    const nextTagId = inputTagId
+      ? inputTagId.value.trim().toUpperCase()
+      : (currentUser.tagId || DEFAULT_USER.tagId);
+
+    if (!getTagData(nextTagId)) {
+      if (profileMessage) {
+        profileMessage.textContent = "Invalid tag code. Use UP1001, UP1002, UP2001, or UP3001.";
+      }
+      return;
+    }
+
     const updatedUser = {
       ...currentUser,
       name: document.getElementById("editName").value.trim() || currentUser.name,
       phone: document.getElementById("editPhone").value.trim() || currentUser.phone,
-      tagNickname:
-        document.getElementById("editTagNickname").value.trim() || currentUser.tagNickname
+      tagNickname: document.getElementById("editTagNickname").value.trim() || currentUser.tagNickname,
+      tagId: nextTagId
     };
 
     setLoggedInUser(updatedUser);
@@ -327,14 +388,13 @@ if (profileForm) {
     if (customerPhone) customerPhone.textContent = updatedUser.phone;
     if (customerTagNickname) customerTagNickname.textContent = updatedUser.tagNickname;
 
-    if (profileMessage) profileMessage.textContent = "Profile updated successfully.";
+    updateMainDashboardTracking(updatedUser.tagId);
+
+    if (profileMessage) {
+      profileMessage.textContent = "Profile updated successfully.";
+    }
   });
 }
-
-const tagMessageForm = document.getElementById("tagMessageForm");
-const tagMessageInput = document.getElementById("tagMessageInput");
-const tagDisplayPreview = document.getElementById("tagDisplayPreview");
-const tagMessageStatus = document.getElementById("tagMessageStatus");
 
 if (tagMessageForm) {
   tagMessageForm.addEventListener("submit", function (e) {
@@ -368,6 +428,7 @@ if (resetProfileBtn) {
     const editName = document.getElementById("editName");
     const editPhone = document.getElementById("editPhone");
     const editTagNickname = document.getElementById("editTagNickname");
+    const editTagId = document.getElementById("editTagId");
 
     if (customerName) customerName.textContent = resetUser.name;
     if (profileNameDisplay) profileNameDisplay.textContent = resetUser.name;
@@ -378,6 +439,9 @@ if (resetProfileBtn) {
     if (editName) editName.value = resetUser.name;
     if (editPhone) editPhone.value = resetUser.phone;
     if (editTagNickname) editTagNickname.value = resetUser.tagNickname;
+    if (editTagId) editTagId.value = resetUser.tagId;
+
+    updateMainDashboardTracking(resetUser.tagId);
 
     setTagDisplayMessage("Boarding Soon");
 
@@ -414,15 +478,7 @@ if (otherTagForm) {
 
     if (otherTagMessage) otherTagMessage.textContent = "";
 
-    document.getElementById("otherOwner").textContent = tag.owner;
-    document.getElementById("otherTagId").textContent = tag.tagId;
-    document.getElementById("otherFlight").textContent = tag.flight;
-    document.getElementById("otherRoute").textContent = tag.route;
-    document.getElementById("otherDeparture").textContent = tag.departure;
-    document.getElementById("otherStatus").textContent = tag.status;
-    document.getElementById("otherGate").textContent = tag.gate;
-    document.getElementById("otherBaggage").textContent = tag.baggage;
-
+    updateOtherTagTracking(tag);
     otherTagResult.classList.remove("hidden");
   });
 }
