@@ -1,13 +1,13 @@
 const DEFAULT_USER = {
   email: "customer@uptag.com",
   password: "uppie123",
-  name: "Prototype Customer",
+  name: "Customer",
   phone: "(555) 014-7788",
   tagNickname: "Main Travel Tag",
   tagId: "UP1001"
 };
 
-const fakeTags = {
+const baseFakeTags = {
   UP1001: {
     owner: "Naruto Uzumaki",
     tagId: "UP1001",
@@ -75,9 +75,59 @@ function resetUserProfile() {
   return user;
 }
 
+function getCustomTravelDataMap() {
+  const data = localStorage.getItem("uptagCustomTravelData");
+  return data ? JSON.parse(data) : {};
+}
+
+function saveCustomTravelDataMap(data) {
+  localStorage.setItem("uptagCustomTravelData", JSON.stringify(data));
+}
+
 function getTagData(tagId) {
   if (!tagId) return null;
-  return fakeTags[tagId.toUpperCase()] || null;
+
+  const normalizedId = tagId.toUpperCase();
+  const baseTag = baseFakeTags[normalizedId];
+
+  if (!baseTag) return null;
+
+  const customMap = getCustomTravelDataMap();
+  const customTag = customMap[normalizedId];
+
+  if (!customTag) {
+    return { ...baseTag };
+  }
+
+  return {
+    ...baseTag,
+    ...customTag,
+    tagId: normalizedId,
+    owner: baseTag.owner
+  };
+}
+
+function saveCustomTravelData(tagId, data) {
+  const normalizedId = tagId.toUpperCase();
+  const customMap = getCustomTravelDataMap();
+
+  customMap[normalizedId] = {
+    flight: data.flight,
+    route: data.route,
+    departure: data.departure,
+    status: data.status,
+    gate: data.gate,
+    baggage: data.baggage
+  };
+
+  saveCustomTravelDataMap(customMap);
+}
+
+function resetCustomTravelData(tagId) {
+  const normalizedId = tagId.toUpperCase();
+  const customMap = getCustomTravelDataMap();
+  delete customMap[normalizedId];
+  saveCustomTravelDataMap(customMap);
 }
 
 function getTagDisplayMessage() {
@@ -186,7 +236,7 @@ function loadBuyPageCart() {
   const firstItem = cart[0];
   const quantity = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 4.99;
+  const shipping = 0;
   const total = subtotal + shipping;
 
   const buyProductName = document.getElementById("buyProductName");
@@ -203,7 +253,7 @@ function loadBuyPageCart() {
   if (buyColor) buyColor.textContent = firstItem.color;
   if (buyQuantity) buyQuantity.textContent = String(quantity);
   if (buySubtotal) buySubtotal.textContent = formatPrice(subtotal);
-  if (buyShipping) buyShipping.textContent = formatPrice(shipping);
+  if (buyShipping) buyShipping.textContent = "Free";
   if (buyTotal) buyTotal.textContent = formatPrice(total);
   if (payButtonText) payButtonText.textContent = `Place Order • ${formatPrice(total)}`;
 }
@@ -280,6 +330,20 @@ function updateMainDashboardTracking(tagId) {
   if (dashBaggage) dashBaggage.textContent = tag.baggage;
   if (dashDepartureCode) dashDepartureCode.textContent = routeCodes.departureCode;
   if (dashArrivalCode) dashArrivalCode.textContent = routeCodes.arrivalCode;
+
+  const editFlight = document.getElementById("editFlight");
+  const editRoute = document.getElementById("editRoute");
+  const editDeparture = document.getElementById("editDeparture");
+  const editGate = document.getElementById("editGate");
+  const editBaggage = document.getElementById("editBaggage");
+  const editStatus = document.getElementById("editStatus");
+
+  if (editFlight) editFlight.value = tag.flight;
+  if (editRoute) editRoute.value = tag.route;
+  if (editDeparture) editDeparture.value = tag.departure;
+  if (editGate) editGate.value = tag.gate;
+  if (editBaggage) editBaggage.value = tag.baggage;
+  if (editStatus) editStatus.value = tag.status;
 }
 
 function updateOtherTagTracking(tag) {
@@ -454,6 +518,52 @@ if (profileForm) {
   });
 }
 
+const travelInfoForm = document.getElementById("travelInfoForm");
+const travelInfoMessage = document.getElementById("travelInfoMessage");
+const resetTravelInfoBtn = document.getElementById("resetTravelInfoBtn");
+
+if (travelInfoForm) {
+  travelInfoForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const currentUser = getLoggedInUser();
+    if (!currentUser) return;
+
+    const currentTagId = (currentUser.tagId || DEFAULT_USER.tagId).toUpperCase();
+
+    const updatedTravel = {
+      flight: document.getElementById("editFlight").value.trim() || "N/A",
+      route: document.getElementById("editRoute").value.trim() || "--- → ---",
+      departure: document.getElementById("editDeparture").value.trim() || "N/A",
+      gate: document.getElementById("editGate").value.trim() || "N/A",
+      baggage: document.getElementById("editBaggage").value.trim() || "N/A",
+      status: document.getElementById("editStatus").value.trim() || "Updated"
+    };
+
+    saveCustomTravelData(currentTagId, updatedTravel);
+    updateMainDashboardTracking(currentTagId);
+
+    if (travelInfoMessage) {
+      travelInfoMessage.textContent = "Travel info updated successfully.";
+    }
+  });
+}
+
+if (resetTravelInfoBtn) {
+  resetTravelInfoBtn.addEventListener("click", function () {
+    const currentUser = getLoggedInUser();
+    if (!currentUser) return;
+
+    const currentTagId = (currentUser.tagId || DEFAULT_USER.tagId).toUpperCase();
+    resetCustomTravelData(currentTagId);
+    updateMainDashboardTracking(currentTagId);
+
+    if (travelInfoMessage) {
+      travelInfoMessage.textContent = "Travel info reset to default.";
+    }
+  });
+}
+
 if (tagMessageForm) {
   tagMessageForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -595,6 +705,7 @@ if (resetProfileBtn) {
     if (editTagNickname) editTagNickname.value = resetUser.tagNickname;
     if (editTagId) editTagId.value = resetUser.tagId;
 
+    resetCustomTravelData(resetUser.tagId);
     updateMainDashboardTracking(resetUser.tagId);
 
     setTagDisplayMessage("Boarding Soon");
@@ -609,6 +720,7 @@ if (resetProfileBtn) {
 
     if (tagMessageStatus) tagMessageStatus.textContent = "";
     if (profileMessage) profileMessage.textContent = "Profile reset.";
+    if (travelInfoMessage) travelInfoMessage.textContent = "";
   });
 }
 
