@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UpTag Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">UpTag</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html" class="nav-login">Login</a>
+    </nav>
+  </header>
+
+  <section class="login-page">
+    <div class="login-page-card">
+      <p class="eyebrow">CUSTOMER PORTAL</p>
+      <h1>Login to Your UpTag Account</h1>
+      <p class="login-page-text">
+        Sign in to view your profile and private tracking dashboard.
+      </p>
+
+      <form id="loginForm" class="login-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="customer@uptag.com" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+
+        <button type="submit" class="btn btn-primary full-width">Login</button>
+      </form>
+
+      <p class="demo-credentials">
+        Demo login: <strong>customer@uptag.com</strong> / <strong>uppie123</strong>
+      </p>
+
+      <p id="loginMessage" class="login-message"></p>
+
+      <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy UpTag</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">UpTag</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="buy.html" class="cart-link">
+        Cart
+        <span class="cart-icon">🛒</span>
+        <span id="cartCount" class="cart-count">0</span>
+      </a>
+      <a href="login.html" class="nav-login">Login</a>
+    </nav>
+  </header>
+
+  <section class="dashboard-page">
+    <div class="dashboard-wrap">
+      <div class="dashboard-header">
+        <p class="eyebrow">CHECKOUT</p>
+        <h1>Buy Your UpTag</h1>
+        <p class="dashboard-text">
+          Review your cart and complete your prototype purchase.
+        </p>
+      </div>
+
+      <div class="product-card buy-layout">
+        <div class="dashboard-card">
+          <h3>Cart Summary</h3>
+
+          <div id="emptyCartMessage" class="prototype-box hidden">
+            <h3>Your cart is empty</h3>
+            <p>Add an UpTag from the homepage to continue.</p>
+            <a href="index.html#shop" class="btn btn-primary top-space">Go to Shop</a>
+          </div>
+
+          <div id="cartSummaryBox">
+            <div class="status-row">
+              <span>Product</span>
+              <strong id="buyProductName">UpTag Smart E-Luggage Tag</strong>
+            </div>
+            <div class="status-row">
+              <span>Model</span>
+              <strong id="buyModel">Pro</strong>
+            </div>
+            <div class="status-row">
+              <span>Color</span>
+              <strong id="buyColor">Midnight Black</strong>
+            </div>
+            <div class="status-row">
+              <span>Quantity</span>
+              <strong id="buyQuantity">1</strong>
+            </div>
+            <div class="status-row">
+              <span>Subtotal</span>
+              <strong id="buySubtotal">$30.00</strong>
+            </div>
+            <div class="status-row">
+              <span>Shipping</span>
+              <strong id="buyShipping">$4.99</strong>
+            </div>
+            <div class="status-row">
+              <span>Total</span>
+              <strong id="buyTotal">$34.99</strong>
+            </div>
+
+            <div class="buy-page-actions">
+              <button type="button" class="btn btn-secondary full-width" id="clearCartBtn">Clear Cart</button>
+            </div>
+
+            <div class="buy-product-preview buy-photo-preview">
+              <img src="images/product-suitcase.png" alt="UpTag attached to suitcase" class="buy-product-photo" />
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <h3>Express Checkout</h3>
+
+          <div id="checkoutSection">
+            <button type="button" class="pay-btn apple-pay-btn" id="applePayBtn"> Pay</button>
+
+            <button type="button" class="pay-btn google-pay-btn" id="googlePayBtn">G Pay</button>
+
+            <div class="buy-divider">
+              <span>or pay with card</span>
+            </div>
+
+            <form id="cardCheckoutForm" class="login-form">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="Enter your full name" required />
+
+              <label for="emailAddress">Email</label>
+              <input type="email" id="emailAddress" placeholder="Enter your email" required />
+
+              <label for="cardNumber">Card Number</label>
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required />
+
+              <div class="card-row">
+                <div>
+                  <label for="expiry">Expiry</label>
+                  <input type="text" id="expiry" placeholder="MM/YY" required />
+                </div>
+                <div>
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" placeholder="123" required />
+                </div>
+              </div>
+
+              <label for="billingZip">Billing ZIP</label>
+              <input type="text" id="billingZip" placeholder="ZIP Code" required />
+
+              <button type="submit" class="btn btn-primary full-width" id="payButtonText">
+                Pay
+              </button>
+            </form>
+
+            <p id="buyMessage" class="login-message"></p>
+          </div>
+
+          <div class="prototype-box small-box">
+            <h3>Prototype Notice</h3>
+            <p>
+              This is a demo checkout page. Apple Pay, Google Pay, and card checkout
+              are prototype interactions only.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

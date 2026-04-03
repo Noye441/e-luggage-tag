@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UpTag</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">UpTag</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#shop">Shop</a>
+      <a href="#faq">FAQ</a>
+      <a href="buy.html" class="cart-link">
+        Cart
+        <span class="cart-icon">🛒</span>
+        <span id="cartCount" class="cart-count">0</span>
+      </a>
+      <a href="login.html" class="nav-login">Login</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="eyebrow">SMART LUGGAGE IDENTIFICATION</p>
+      <h1>Replace Paper Tags With a Smarter Way to Travel.</h1>
+      <p class="hero-text">
+        UpTag is a smart digital replacement for traditional baggage tags.
+        Built with a 3-inch e-ink display, it keeps your travel info visible,
+        secure, and easy to update — without paper.
+      </p>
+      <div class="hero-buttons">
+        <a href="buy.html" class="btn btn-primary">Buy Now</a>
+        <a href="login.html" class="btn btn-secondary">Customer Login</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="intro-card">
+      <h2>Built for modern travel</h2>
+      <p>
+        Paper baggage tags can tear, fade, and get lost. UpTag replaces them
+        with a durable digital display, designed for frequent travelers,
+        families, and international trips.
+      </p>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section">
+    <div class="section-title">
+      <p>FEATURES</p>
+      <h2>One tag. More control. Less stress.</h2>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Digital Travel Display</h3>
+        <p>Show name, flight, and destination directly on the tag.</p>
+      </div>
+      <div class="feature-card">
+        <h3>QR / Barcode Ready</h3>
+        <p>Display scannable codes for quick identification.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Bluetooth Tracking Concept</h3>
+        <p>Track luggage visibility through your dashboard.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Durable Build</h3>
+        <p>Designed to handle real airport conditions.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Low Power E-Ink Screen</h3>
+        <p>Always visible, even without constant charging.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Private Dashboard</h3>
+        <p>Manage your tag, tracking, and profile securely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section alt-section">
+    <div class="section-title">
+      <p>HOW IT WORKS</p>
+      <h2>Simple setup. Smarter travel.</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span>01</span>
+        <h3>Create Account</h3>
+        <p>Login and connect your UpTag.</p>
+      </div>
+      <div class="step">
+        <span>02</span>
+        <h3>Add Travel Info</h3>
+        <p>Enter flight, name, and destination.</p>
+      </div>
+      <div class="step">
+        <span>03</span>
+        <h3>Attach to Bag</h3>
+        <p>Secure your tag to your luggage.</p>
+      </div>
+      <div class="step">
+        <span>04</span>
+        <h3>Travel with Confidence</h3>
+        <p>Track and manage everything in your dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section id="shop" class="section">
+    <div class="section-title">
+      <p>SHOP</p>
+      <h2>Choose your UpTag</h2>
+    </div>
+
+    <div class="product-card">
+
+      <!-- ✅ FIXED IMAGE PATHS -->
+      <div class="product-image product-gallery">
+        <img src="./images/product-suitcase.png" alt="UpTag attached to suitcase" class="product-photo main-photo" />
+        <img src="./images/product-backpack.png" alt="UpTag attached to backpack" class="product-photo side-photo" />
+      </div>
+
+      <div class="product-info">
+        <h3>UpTag Smart E-Luggage Tag</h3>
+        <p class="price">$30.00</p>
+        <p>
+          A durable, digital luggage tag with e-ink display, QR support,
+          and smart tracking features — built for modern travelers.
+        </p>
+
+        <label for="color">Choose Color</label>
+        <select id="color">
+          <option>Midnight Black</option>
+          <option>Silver Cloud</option>
+          <option>Arctic White</option>
+        </select>
+
+        <label for="model">Choose Model</label>
+        <select id="model">
+          <option>Standard</option>
+          <option>Pro</option>
+        </select>
+
+        <div class="shop-buttons">
+          <button class="btn btn-primary" type="button" id="addToCartBtn">
+            Add to Cart
+          </button>
+          <a href="buy.html" class="btn btn-secondary">
+            Buy Now
+          </a>
+        </div>
+
+        <p id="cartMessage" class="prototype-note"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="section-title">
+      <p>FAQ</p>
+      <h2>Questions</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Is this a real product?</h3>
+        <p>This is a prototype demonstration site.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I add to cart?</h3>
+        <p>Yes — cart functionality is fully simulated.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is checkout real?</h3>
+        <p>No — payments are demo only.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <h2>UpTag</h2>
+    <p>Smarter luggage identification for modern travelers.</p>
+
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="buy.html">Cart</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
