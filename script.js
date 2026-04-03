@@ -100,9 +100,14 @@ function saveCart(cart) {
 function updateCartCount() {
   const cart = getCart();
   const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   document.querySelectorAll("#cartCount").forEach((el) => {
     el.textContent = totalQty;
   });
+}
+
+function formatPrice(num) {
+  return `$${num.toFixed(2)}`;
 }
 
 function addCurrentProductToCart() {
@@ -114,8 +119,12 @@ function addCurrentProductToCart() {
   const model = modelEl ? modelEl.value : "Standard";
 
   const cart = getCart();
+
   const existing = cart.find(
-    (item) => item.product === "UpTag Smart E-Luggage Tag" && item.color === color && item.model === model
+    (item) =>
+      item.product === "UpTag Smart E-Luggage Tag" &&
+      item.color === color &&
+      item.model === model
   );
 
   if (existing) {
@@ -123,8 +132,8 @@ function addCurrentProductToCart() {
   } else {
     cart.push({
       product: "UpTag Smart E-Luggage Tag",
-      color,
-      model,
+      color: color,
+      model: model,
       price: 30.0,
       quantity: 1
     });
@@ -134,12 +143,8 @@ function addCurrentProductToCart() {
   updateCartCount();
 
   if (messageEl) {
-    messageEl.textContent = "Added to cart successfully.";
+    messageEl.textContent = "Added to cart.";
   }
-}
-
-function formatPrice(num) {
-  return `$${num.toFixed(2)}`;
 }
 
 function loadBuyPageCart() {
@@ -184,7 +189,32 @@ function loadBuyPageCart() {
   if (buySubtotal) buySubtotal.textContent = formatPrice(subtotal);
   if (buyShipping) buyShipping.textContent = formatPrice(shipping);
   if (buyTotal) buyTotal.textContent = formatPrice(total);
-  if (payButtonText) payButtonText.textContent = `Pay ${formatPrice(total)}`;
+  if (payButtonText) payButtonText.textContent = `Place Order • ${formatPrice(total)}`;
+}
+
+function setupProductGallery() {
+  const mainImage = document.getElementById("mainProductImage");
+  const thumbButtons = document.querySelectorAll(".thumb-btn");
+
+  if (!mainImage || thumbButtons.length === 0) return;
+
+  thumbButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const image = button.getAttribute("data-image");
+      const alt = button.getAttribute("data-alt");
+
+      if (image) {
+        mainImage.src = image;
+      }
+
+      if (alt) {
+        mainImage.alt = alt;
+      }
+
+      thumbButtons.forEach((btn) => btn.classList.remove("active-thumb"));
+      button.classList.add("active-thumb");
+    });
+  });
 }
 
 /* LOGIN */
@@ -206,14 +236,15 @@ if (loginForm) {
         tagNickname: DEFAULT_USER.tagNickname,
         tagId: DEFAULT_USER.tagId
       });
+
       window.location.href = "dashboard.html";
     } else if (loginMessage) {
-      loginMessage.textContent = "Invalid email or password. Use the demo login.";
+      loginMessage.textContent = "Invalid login. Please use the customer access credentials.";
     }
   });
 }
 
-/* DASHBOARD */
+/* DASHBOARD AUTH + LOAD */
 const dashboardMarker = document.getElementById("customerName");
 
 if (dashboardMarker) {
@@ -285,7 +316,8 @@ if (profileForm) {
       ...currentUser,
       name: document.getElementById("editName").value.trim() || currentUser.name,
       phone: document.getElementById("editPhone").value.trim() || currentUser.phone,
-      tagNickname: document.getElementById("editTagNickname").value.trim() || currentUser.tagNickname
+      tagNickname:
+        document.getElementById("editTagNickname").value.trim() || currentUser.tagNickname
     };
 
     setLoggedInUser(updatedUser);
@@ -324,11 +356,11 @@ if (tagMessageForm) {
     setTagDisplayMessage(newMessage);
 
     if (tagDisplayPreview) tagDisplayPreview.textContent = newMessage;
-    if (tagMessageStatus) tagMessageStatus.textContent = "Tag display updated successfully.";
+    if (tagMessageStatus) tagMessageStatus.textContent = "Tag display updated.";
   });
 }
 
-/* RESET */
+/* RESET PROFILE */
 const resetProfileBtn = document.getElementById("resetProfileBtn");
 
 if (resetProfileBtn) {
@@ -355,11 +387,12 @@ if (resetProfileBtn) {
     if (editTagNickname) editTagNickname.value = resetUser.tagNickname;
 
     setTagDisplayMessage("Boarding Soon");
+
     if (tagDisplayPreview) tagDisplayPreview.textContent = "Boarding Soon";
     if (tagMessageInput) tagMessageInput.value = "Boarding Soon";
     if (tagMessageStatus) tagMessageStatus.textContent = "";
 
-    if (profileMessage) profileMessage.textContent = "Demo profile reset.";
+    if (profileMessage) profileMessage.textContent = "Profile reset.";
   });
 }
 
@@ -421,6 +454,18 @@ if (addToCartBtn) {
   });
 }
 
+/* QUICK BUY NOW */
+const buyNowBtn = document.getElementById("buyNowBtn");
+if (buyNowBtn) {
+  buyNowBtn.addEventListener("click", function () {
+    const cart = getCart();
+
+    if (cart.length === 0) {
+      addCurrentProductToCart();
+    }
+  });
+}
+
 /* BUY PAGE */
 const applePayBtn = document.getElementById("applePayBtn");
 const googlePayBtn = document.getElementById("googlePayBtn");
@@ -431,7 +476,7 @@ const clearCartBtn = document.getElementById("clearCartBtn");
 if (applePayBtn) {
   applePayBtn.addEventListener("click", function () {
     if (buyMessage) {
-      buyMessage.textContent = "Prototype Apple Pay checkout only. Real payment integration will be added later.";
+      buyMessage.textContent = "Apple Pay is currently unavailable in this browser session.";
     }
   });
 }
@@ -439,7 +484,7 @@ if (applePayBtn) {
 if (googlePayBtn) {
   googlePayBtn.addEventListener("click", function () {
     if (buyMessage) {
-      buyMessage.textContent = "Prototype Google Pay checkout only. Real payment integration will be added later.";
+      buyMessage.textContent = "Google Pay is currently unavailable in this browser session.";
     }
   });
 }
@@ -449,7 +494,7 @@ if (cardCheckoutForm) {
     e.preventDefault();
 
     if (buyMessage) {
-      buyMessage.textContent = "Prototype card payment submitted successfully.";
+      buyMessage.textContent = "Order submitted successfully.";
     }
 
     saveCart([]);
@@ -464,9 +509,13 @@ if (clearCartBtn) {
     saveCart([]);
     updateCartCount();
     loadBuyPageCart();
-    if (buyMessage) buyMessage.textContent = "Cart cleared.";
+
+    if (buyMessage) {
+      buyMessage.textContent = "Cart cleared.";
+    }
   });
 }
 
 updateCartCount();
 loadBuyPageCart();
+setupProductGallery();

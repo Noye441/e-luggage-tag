@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UpTag</title>
+  <title>UpTag | Smart Digital Luggage Tag</title>
+  <meta
+    name="description"
+    content="UpTag is a smart digital luggage tag with a 3-inch e-ink display, QR and barcode support, customer dashboard access, and a modern travel-ready design."
+  />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header class="navbar">
-    <div class="logo">UpTag</div>
+    <a href="index.html" class="logo">UpTag</a>
+
     <nav>
       <a href="#features">Features</a>
       <a href="#how">How It Works</a>
@@ -24,72 +28,132 @@
     </nav>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="eyebrow">SMART LUGGAGE IDENTIFICATION</p>
-      <h1>Replace Paper Tags With a Smarter Way to Travel.</h1>
-      <p class="hero-text">
-        UpTag is a smart digital replacement for traditional baggage tags.
-        Built with a 3-inch e-ink display, it keeps your travel info visible,
-        secure, and easy to update — without paper.
-      </p>
-      <div class="hero-buttons">
-        <a href="buy.html" class="btn btn-primary">Buy Now</a>
-        <a href="login.html" class="btn btn-secondary">Customer Login</a>
+
+    <div class="hero-content hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">SMART DIGITAL LUGGAGE TAG</p>
+        <h1>Replace paper baggage tags with a smarter way to travel.</h1>
+        <p class="hero-text">
+          UpTag is a modern digital replacement for traditional paper baggage tags.
+          With a durable body, a 3-inch e-ink display, barcode and QR support,
+          and a private customer dashboard, UpTag is built for frequent travelers,
+          families, and international trips.
+        </p>
+
+        <div class="hero-points">
+          <span>3-inch e-ink display</span>
+          <span>QR / barcode ready</span>
+          <span>Private dashboard access</span>
+          <span>From $30</span>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#shop" class="btn btn-primary">Shop Now</a>
+          <a href="login.html" class="btn btn-secondary">Customer Login</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-card">
+          <img
+            src="./images/product-suitcase.png"
+            alt="UpTag attached to suitcase"
+            class="hero-product-image"
+          />
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- INTRO -->
   <section class="intro">
     <div class="intro-card">
       <h2>Built for modern travel</h2>
       <p>
-        Paper baggage tags can tear, fade, and get lost. UpTag replaces them
-        with a durable digital display, designed for frequent travelers,
-        families, and international trips.
+        Traditional paper baggage tags can tear off, fade, or get misplaced.
+        UpTag is designed as a durable digital alternative that keeps travel
+        information visible, easier to update, and better organized through a
+        simple customer experience.
       </p>
     </div>
   </section>
 
-  <!-- FEATURES -->
+  <section class="section stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>3-Inch</h3>
+        <p>E-ink display concept for clear travel info visibility</p>
+      </div>
+      <div class="stat-card">
+        <h3>$30</h3>
+        <p>Affordable pricing target for everyday travelers</p>
+      </div>
+      <div class="stat-card">
+        <h3>Private</h3>
+        <p>Customer login and dashboard for personalized access</p>
+      </div>
+      <div class="stat-card">
+        <h3>Travel-Ready</h3>
+        <p>Made for frequent flyers, families, and international trips</p>
+      </div>
+    </div>
+  </section>
+
   <section id="features" class="section">
     <div class="section-title">
       <p>FEATURES</p>
-      <h2>One tag. More control. Less stress.</h2>
+      <h2>One tag. More visibility. Less travel stress.</h2>
     </div>
 
     <div class="feature-grid">
       <div class="feature-card">
         <h3>Digital Travel Display</h3>
-        <p>Show name, flight, and destination directly on the tag.</p>
+        <p>
+          Show key travel details on a compact digital screen instead of relying
+          on paper baggage tags.
+        </p>
       </div>
+
       <div class="feature-card">
-        <h3>QR / Barcode Ready</h3>
-        <p>Display scannable codes for quick identification.</p>
+        <h3>QR & Barcode Support</h3>
+        <p>
+          Display scannable travel information directly on the tag for easier
+          identification.
+        </p>
       </div>
+
       <div class="feature-card">
         <h3>Bluetooth Tracking Concept</h3>
-        <p>Track luggage visibility through your dashboard.</p>
+        <p>
+          A travel-tech concept built around better visibility and smarter bag
+          awareness.
+        </p>
       </div>
+
       <div class="feature-card">
         <h3>Durable Build</h3>
-        <p>Designed to handle real airport conditions.</p>
+        <p>
+          Designed for airport handling, repeated travel, and everyday carry use.
+        </p>
       </div>
+
       <div class="feature-card">
-        <h3>Low Power E-Ink Screen</h3>
-        <p>Always visible, even without constant charging.</p>
+        <h3>Customer Dashboard</h3>
+        <p>
+          Sign in to manage your tag, view travel status, and update display info.
+        </p>
       </div>
+
       <div class="feature-card">
-        <h3>Private Dashboard</h3>
-        <p>Manage your tag, tracking, and profile securely.</p>
+        <h3>Custom Tag Message</h3>
+        <p>
+          Update a message shown on the tag display through your personal dashboard.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
   <section id="how" class="section alt-section">
     <div class="section-title">
       <p>HOW IT WORKS</p>
@@ -99,49 +163,84 @@
     <div class="steps">
       <div class="step">
         <span>01</span>
-        <h3>Create Account</h3>
-        <p>Login and connect your UpTag.</p>
+        <h3>Create Your Account</h3>
+        <p>Access your UpTag dashboard and manage your information in one place.</p>
       </div>
+
       <div class="step">
         <span>02</span>
-        <h3>Add Travel Info</h3>
-        <p>Enter flight, name, and destination.</p>
+        <h3>Set Your Travel Info</h3>
+        <p>Add details like your name, route, and other visible travel data.</p>
       </div>
+
       <div class="step">
         <span>03</span>
-        <h3>Attach to Bag</h3>
-        <p>Secure your tag to your luggage.</p>
+        <h3>Attach It To Your Bag</h3>
+        <p>Secure UpTag to your luggage as a clean digital replacement for paper tags.</p>
       </div>
+
       <div class="step">
         <span>04</span>
-        <h3>Travel with Confidence</h3>
-        <p>Track and manage everything in your dashboard.</p>
+        <h3>Manage Through Dashboard</h3>
+        <p>View your profile, tag info, and dashboard tools in a private portal.</p>
       </div>
     </div>
   </section>
 
-  <!-- SHOP -->
   <section id="shop" class="section">
     <div class="section-title">
       <p>SHOP</p>
       <h2>Choose your UpTag</h2>
     </div>
 
-    <div class="product-card">
+    <div class="product-card shop-card">
+      <div class="product-gallery-wrap">
+        <div class="product-image-main">
+          <img
+            id="mainProductImage"
+            src="./images/product-suitcase.png"
+            alt="UpTag attached to suitcase"
+            class="product-photo featured-photo"
+          />
+        </div>
 
-      <!-- ✅ FIXED IMAGE PATHS -->
-      <div class="product-image product-gallery">
-        <img src="./images/product-suitcase.png" alt="UpTag attached to suitcase" class="product-photo main-photo" />
-        <img src="./images/product-backpack.png" alt="UpTag attached to backpack" class="product-photo side-photo" />
+        <div class="product-thumbs">
+          <button
+            type="button"
+            class="thumb-btn active-thumb"
+            data-image="./images/product-suitcase.png"
+            data-alt="UpTag attached to suitcase"
+          >
+            <img src="./images/product-suitcase.png" alt="Suitcase view" class="thumb-photo" />
+          </button>
+
+          <button
+            type="button"
+            class="thumb-btn"
+            data-image="./images/product-backpack.png"
+            data-alt="UpTag attached to backpack"
+          >
+            <img src="./images/product-backpack.png" alt="Backpack view" class="thumb-photo" />
+          </button>
+        </div>
       </div>
 
       <div class="product-info">
+        <p class="eyebrow">EARLY PRODUCT ACCESS</p>
         <h3>UpTag Smart E-Luggage Tag</h3>
         <p class="price">$30.00</p>
+
         <p>
-          A durable, digital luggage tag with e-ink display, QR support,
-          and smart tracking features — built for modern travelers.
+          A travel-tech luggage tag designed to replace paper baggage tags with
+          a modern digital display, a durable build, and private dashboard access.
         </p>
+
+        <ul class="product-highlights">
+          <li>3-inch e-ink display concept</li>
+          <li>QR / barcode display support</li>
+          <li>Durable travel-ready construction</li>
+          <li>Ideal for frequent and international travelers</li>
+        </ul>
 
         <label for="color">Choose Color</label>
         <select id="color">
@@ -157,47 +256,73 @@
         </select>
 
         <div class="shop-buttons">
-          <button class="btn btn-primary" type="button" id="addToCartBtn">
-            Add to Cart
-          </button>
-          <a href="buy.html" class="btn btn-secondary">
-            Buy Now
-          </a>
+          <button class="btn btn-primary" type="button" id="addToCartBtn">Add to Cart</button>
+          <a href="buy.html" class="btn btn-secondary" id="buyNowBtn">Buy Now</a>
         </div>
 
-        <p id="cartMessage" class="prototype-note"></p>
+        <p id="cartMessage" class="site-message"></p>
       </div>
-
     </div>
   </section>
 
-  <!-- FAQ -->
+  <section class="section alt-section audience-section">
+    <div class="section-title">
+      <p>WHO IT'S FOR</p>
+      <h2>Designed for real travel habits</h2>
+    </div>
+
+    <div class="audience-grid">
+      <div class="feature-card">
+        <h3>Frequent Travelers</h3>
+        <p>For people who fly often and want a cleaner, reusable baggage tag solution.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Families</h3>
+        <p>Helps simplify identifying multiple bags across family trips and busy travel days.</p>
+      </div>
+      <div class="feature-card">
+        <h3>International Travelers</h3>
+        <p>Useful for longer, more complex travel routes where clear luggage identification matters.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="faq" class="section">
     <div class="section-title">
       <p>FAQ</p>
-      <h2>Questions</h2>
+      <h2>Common questions</h2>
     </div>
 
     <div class="faq-list">
       <div class="faq-item">
-        <h3>Is this a real product?</h3>
-        <p>This is a prototype demonstration site.</p>
+        <h3>What is UpTag?</h3>
+        <p>
+          UpTag is a smart digital luggage tag concept designed to replace paper
+          baggage tags with a more durable and modern travel solution.
+        </p>
       </div>
+
       <div class="faq-item">
-        <h3>Can I add to cart?</h3>
-        <p>Yes — cart functionality is fully simulated.</p>
+        <h3>Who is UpTag for?</h3>
+        <p>
+          UpTag is built for frequent travelers, families, and international
+          travelers looking for a cleaner luggage identification experience.
+        </p>
       </div>
+
       <div class="faq-item">
-        <h3>Is checkout real?</h3>
-        <p>No — payments are demo only.</p>
+        <h3>Can I manage my tag online?</h3>
+        <p>
+          Yes. Customers can sign in to a private dashboard to manage their
+          profile, tag message, and dashboard details.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <h2>UpTag</h2>
-    <p>Smarter luggage identification for modern travelers.</p>
+    <p>Smart luggage identification for modern travelers.</p>
 
     <div class="footer-links">
       <a href="index.html">Home</a>
@@ -208,6 +333,5 @@
   </footer>
 
   <script src="script.js"></script>
-
 </body>
 </html>

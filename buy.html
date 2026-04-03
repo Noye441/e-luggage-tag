@@ -8,7 +8,7 @@
 </head>
 <body>
   <header class="navbar">
-    <div class="logo">UpTag</div>
+    <a href="index.html" class="logo">UpTag</a>
     <nav>
       <a href="index.html">Home</a>
       <a href="buy.html" class="cart-link">
@@ -24,19 +24,19 @@
     <div class="dashboard-wrap">
       <div class="dashboard-header">
         <p class="eyebrow">CHECKOUT</p>
-        <h1>Buy Your UpTag</h1>
+        <h1>Complete Your Order</h1>
         <p class="dashboard-text">
-          Review your cart and complete your prototype purchase.
+          Review your cart, choose your checkout method, and continue with your UpTag order.
         </p>
       </div>
 
       <div class="product-card buy-layout">
         <div class="dashboard-card">
-          <h3>Cart Summary</h3>
+          <h3>Order Summary</h3>
 
-          <div id="emptyCartMessage" class="prototype-box hidden">
+          <div id="emptyCartMessage" class="info-box hidden">
             <h3>Your cart is empty</h3>
-            <p>Add an UpTag from the homepage to continue.</p>
+            <p>Add an UpTag from the shop to continue.</p>
             <a href="index.html#shop" class="btn btn-primary top-space">Go to Shop</a>
           </div>
 
@@ -65,31 +65,36 @@
               <span>Shipping</span>
               <strong id="buyShipping">$4.99</strong>
             </div>
-            <div class="status-row">
+            <div class="status-row total-row">
               <span>Total</span>
               <strong id="buyTotal">$34.99</strong>
             </div>
 
             <div class="buy-page-actions">
-              <button type="button" class="btn btn-secondary full-width" id="clearCartBtn">Clear Cart</button>
+              <button type="button" class="btn btn-secondary full-width" id="clearCartBtn">
+                Clear Cart
+              </button>
             </div>
 
             <div class="buy-product-preview buy-photo-preview">
-              <img src="images/product-suitcase.png" alt="UpTag attached to suitcase" class="buy-product-photo" />
+              <img
+                src="./images/product-suitcase.png"
+                alt="UpTag attached to suitcase"
+                class="buy-product-photo"
+              />
             </div>
           </div>
         </div>
 
         <div class="dashboard-card">
-          <h3>Express Checkout</h3>
+          <h3>Checkout</h3>
 
           <div id="checkoutSection">
             <button type="button" class="pay-btn apple-pay-btn" id="applePayBtn"> Pay</button>
-
             <button type="button" class="pay-btn google-pay-btn" id="googlePayBtn">G Pay</button>
 
             <div class="buy-divider">
-              <span>or pay with card</span>
+              <span>or continue with card</span>
             </div>
 
             <form id="cardCheckoutForm" class="login-form">
@@ -117,18 +122,18 @@
               <input type="text" id="billingZip" placeholder="ZIP Code" required />
 
               <button type="submit" class="btn btn-primary full-width" id="payButtonText">
-                Pay
+                Place Order
               </button>
             </form>
 
-            <p id="buyMessage" class="login-message"></p>
+            <p id="buyMessage" class="site-message"></p>
           </div>
 
-          <div class="prototype-box small-box">
-            <h3>Prototype Notice</h3>
+          <div class="info-box small-box">
+            <h3>Order Support</h3>
             <p>
-              This is a demo checkout page. Apple Pay, Google Pay, and card checkout
-              are prototype interactions only.
+              Review your order details carefully before continuing. Your cart and
+              selections are saved locally in your browser for convenience.
             </p>
           </div>
         </div>

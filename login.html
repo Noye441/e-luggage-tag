@@ -8,9 +8,14 @@
 </head>
 <body>
   <header class="navbar">
-    <div class="logo">UpTag</div>
+    <a href="index.html" class="logo">UpTag</a>
     <nav>
       <a href="index.html">Home</a>
+      <a href="buy.html" class="cart-link">
+        Cart
+        <span class="cart-icon">🛒</span>
+        <span id="cartCount" class="cart-count">0</span>
+      </a>
       <a href="login.html" class="nav-login">Login</a>
     </nav>
   </header>
@@ -20,7 +25,8 @@
       <p class="eyebrow">CUSTOMER PORTAL</p>
       <h1>Login to Your UpTag Account</h1>
       <p class="login-page-text">
-        Sign in to view your profile and private tracking dashboard.
+        Sign in to access your customer dashboard, manage your tag details,
+        and personalize your UpTag experience.
       </p>
 
       <form id="loginForm" class="login-form">
@@ -34,10 +40,10 @@
       </form>
 
       <p class="demo-credentials">
-        Demo login: <strong>customer@uptag.com</strong> / <strong>uppie123</strong>
+        Customer access: <strong>customer@uptag.com</strong> / <strong>uppie123</strong>
       </p>
 
-      <p id="loginMessage" class="login-message"></p>
+      <p id="loginMessage" class="site-message"></p>
 
       <a href="index.html" class="back-link">← Back to Home</a>
     </div>
