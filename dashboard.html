@@ -130,7 +130,7 @@
       <div class="private-section">
         <div class="section-title left-title">
           <p>TAG DISPLAY</p>
-          <h2>Message shown on your tag</h2>
+          <h2>Message or image shown on your tag</h2>
         </div>
 
         <div class="profile-section">
@@ -147,9 +147,29 @@
               />
 
               <button type="submit" class="btn btn-primary full-width">
-                Update Display
+                Update Text
               </button>
             </form>
+
+            <div class="tag-display-tools">
+              <h3 class="tool-subtitle">Display Mode</h3>
+
+              <div class="mode-buttons">
+                <button type="button" class="btn btn-secondary" id="textModeBtn">
+                  Use Text
+                </button>
+                <button type="button" class="btn btn-secondary" id="imageModeBtn">
+                  Use Image
+                </button>
+              </div>
+
+              <label for="tagImageInput">Upload Tag Image</label>
+              <input type="file" id="tagImageInput" accept="image/*" />
+
+              <button type="button" class="btn btn-secondary full-width" id="removeTagImageBtn">
+                Remove Image
+              </button>
+            </div>
 
             <p id="tagMessageStatus" class="site-message"></p>
           </div>
@@ -160,9 +180,18 @@
             <div class="tag-display-box">
               <div class="tag-display-screen">
                 <p class="tag-display-label">UPTAG DISPLAY</p>
-                <div id="tagDisplayPreview" class="tag-display-text">Boarding Soon</div>
+
+                <div id="tagTextPreviewWrap" class="tag-display-content">
+                  <div id="tagDisplayPreview" class="tag-display-text">Boarding Soon</div>
+                </div>
+
+                <div id="tagImagePreviewWrap" class="tag-display-image-wrap hidden">
+                  <img id="tagImagePreview" src="" alt="Uploaded tag preview" class="tag-display-image" />
+                </div>
               </div>
             </div>
+
+            <p id="tagModeLabel" class="tag-mode-label">Current mode: Text</p>
           </div>
         </div>
       </div>

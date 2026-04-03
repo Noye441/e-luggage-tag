@@ -88,6 +88,26 @@ function setTagDisplayMessage(message) {
   localStorage.setItem("uptagTagMessage", message);
 }
 
+function getTagDisplayMode() {
+  return localStorage.getItem("uptagTagMode") || "text";
+}
+
+function setTagDisplayMode(mode) {
+  localStorage.setItem("uptagTagMode", mode);
+}
+
+function getTagDisplayImage() {
+  return localStorage.getItem("uptagTagImage") || "";
+}
+
+function setTagDisplayImage(imageData) {
+  localStorage.setItem("uptagTagImage", imageData);
+}
+
+function removeTagDisplayImage() {
+  localStorage.removeItem("uptagTagImage");
+}
+
 function getCart() {
   const cart = localStorage.getItem("uptagCart");
   return cart ? JSON.parse(cart) : [];
@@ -277,6 +297,38 @@ function updateOtherTagTracking(tag) {
   document.getElementById("otherArrivalCode").textContent = routeCodes.arrivalCode;
 }
 
+function refreshTagDisplayUI() {
+  const textWrap = document.getElementById("tagTextPreviewWrap");
+  const imageWrap = document.getElementById("tagImagePreviewWrap");
+  const textPreview = document.getElementById("tagDisplayPreview");
+  const imagePreview = document.getElementById("tagImagePreview");
+  const modeLabel = document.getElementById("tagModeLabel");
+
+  if (!textWrap || !imageWrap || !textPreview || !imagePreview || !modeLabel) return;
+
+  const currentMode = getTagDisplayMode();
+  const currentMessage = getTagDisplayMessage();
+  const currentImage = getTagDisplayImage();
+
+  textPreview.textContent = currentMessage;
+
+  if (currentImage) {
+    imagePreview.src = currentImage;
+  } else {
+    imagePreview.removeAttribute("src");
+  }
+
+  if (currentMode === "image" && currentImage) {
+    textWrap.classList.add("hidden");
+    imageWrap.classList.remove("hidden");
+    modeLabel.textContent = "Current mode: Image";
+  } else {
+    textWrap.classList.remove("hidden");
+    imageWrap.classList.add("hidden");
+    modeLabel.textContent = "Current mode: Text";
+  }
+}
+
 const loginForm = document.getElementById("loginForm");
 const loginMessage = document.getElementById("loginMessage");
 
@@ -308,6 +360,10 @@ const tagMessageForm = document.getElementById("tagMessageForm");
 const tagMessageInput = document.getElementById("tagMessageInput");
 const tagDisplayPreview = document.getElementById("tagDisplayPreview");
 const tagMessageStatus = document.getElementById("tagMessageStatus");
+const tagImageInput = document.getElementById("tagImageInput");
+const removeTagImageBtn = document.getElementById("removeTagImageBtn");
+const textModeBtn = document.getElementById("textModeBtn");
+const imageModeBtn = document.getElementById("imageModeBtn");
 
 if (dashboardMarker) {
   const user = getLoggedInUser();
@@ -343,6 +399,8 @@ if (dashboardMarker) {
 
     if (tagDisplayPreview) tagDisplayPreview.textContent = savedMessage;
     if (tagMessageInput) tagMessageInput.value = savedMessage;
+
+    refreshTagDisplayUI();
   }
 }
 
@@ -408,9 +466,105 @@ if (tagMessageForm) {
     }
 
     setTagDisplayMessage(newMessage);
+    setTagDisplayMode("text");
 
-    if (tagDisplayPreview) tagDisplayPreview.textContent = newMessage;
-    if (tagMessageStatus) tagMessageStatus.textContent = "Tag display updated.";
+    refreshTagDisplayUI();
+
+    if (tagMessageStatus) {
+      tagMessageStatus.textContent = "Text display updated.";
+    }
+  });
+}
+
+if (textModeBtn) {
+  textModeBtn.addEventListener("click", function () {
+    setTagDisplayMode("text");
+    refreshTagDisplayUI();
+
+    if (tagMessageStatus) {
+      tagMessageStatus.textContent = "Text mode selected.";
+    }
+  });
+}
+
+if (imageModeBtn) {
+  imageModeBtn.addEventListener("click", function () {
+    const currentImage = getTagDisplayImage();
+
+    if (!currentImage) {
+      if (tagMessageStatus) {
+        tagMessageStatus.textContent = "Upload an image first.";
+      }
+      return;
+    }
+
+    setTagDisplayMode("image");
+    refreshTagDisplayUI();
+
+    if (tagMessageStatus) {
+      tagMessageStatus.textContent = "Image mode selected.";
+    }
+  });
+}
+
+if (tagImageInput) {
+  tagImageInput.addEventListener("change", function (e) {
+    const file = e.target.files && e.target.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      if (tagMessageStatus) {
+        tagMessageStatus.textContent = "Please upload an image file.";
+      }
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      const imageData = event.target && event.target.result ? String(event.target.result) : "";
+
+      if (!imageData) {
+        if (tagMessageStatus) {
+          tagMessageStatus.textContent = "Could not read image.";
+        }
+        return;
+      }
+
+      try {
+        setTagDisplayImage(imageData);
+        setTagDisplayMode("image");
+        refreshTagDisplayUI();
+
+        if (tagMessageStatus) {
+          tagMessageStatus.textContent = "Image uploaded successfully.";
+        }
+      } catch (error) {
+        if (tagMessageStatus) {
+          tagMessageStatus.textContent = "Image is too large for browser storage. Try a smaller image.";
+        }
+      }
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+if (removeTagImageBtn) {
+  removeTagImageBtn.addEventListener("click", function () {
+    removeTagDisplayImage();
+    setTagDisplayMode("text");
+
+    if (tagImageInput) {
+      tagImageInput.value = "";
+    }
+
+    refreshTagDisplayUI();
+
+    if (tagMessageStatus) {
+      tagMessageStatus.textContent = "Uploaded image removed.";
+    }
   });
 }
 
@@ -444,11 +598,16 @@ if (resetProfileBtn) {
     updateMainDashboardTracking(resetUser.tagId);
 
     setTagDisplayMessage("Boarding Soon");
+    setTagDisplayMode("text");
+    removeTagDisplayImage();
 
-    if (tagDisplayPreview) tagDisplayPreview.textContent = "Boarding Soon";
-    if (tagMessageInput) tagMessageInput.value = "Boarding Soon";
+    if (tagImageInput) {
+      tagImageInput.value = "";
+    }
+
+    refreshTagDisplayUI();
+
     if (tagMessageStatus) tagMessageStatus.textContent = "";
-
     if (profileMessage) profileMessage.textContent = "Profile reset.";
   });
 }
