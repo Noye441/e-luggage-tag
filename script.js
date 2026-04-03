@@ -9,7 +9,7 @@ const DEFAULT_USER = {
 
 const fakeTags = {
   UP1001: {
-    owner: "Prototype Customer",
+    owner: "Naruto Uzumaki",
     tagId: "UP1001",
     flight: "UA 248",
     route: "JFK → LAX",
@@ -19,7 +19,7 @@ const fakeTags = {
     baggage: "Checked In"
   },
   UP1002: {
-    owner: "Sarah Khan",
+    owner: "Monkey D. Luffy",
     tagId: "UP1002",
     flight: "DL 517",
     route: "BUF → MIA",
@@ -29,7 +29,7 @@ const fakeTags = {
     baggage: "Loaded"
   },
   UP2001: {
-    owner: "Michael Lee",
+    owner: "Son Goku",
     tagId: "UP2001",
     flight: "BA 178",
     route: "NYC → LON",
@@ -39,7 +39,7 @@ const fakeTags = {
     baggage: "Awaiting Drop-Off"
   },
   UP3001: {
-    owner: "Amina Rahman",
+    owner: "Ash Ketchum",
     tagId: "UP3001",
     flight: "AA 904",
     route: "ORD → DFW",
@@ -111,12 +111,10 @@ function formatPrice(num) {
 }
 
 function addCurrentProductToCart() {
-  const colorEl = document.getElementById("color");
-  const modelEl = document.getElementById("model");
   const messageEl = document.getElementById("cartMessage");
 
-  const color = colorEl ? colorEl.value : "Midnight Black";
-  const model = modelEl ? modelEl.value : "Standard";
+  const color = "Midnight Black";
+  const model = "Standard";
 
   const cart = getCart();
 
@@ -217,7 +215,6 @@ function setupProductGallery() {
   });
 }
 
-/* LOGIN */
 const loginForm = document.getElementById("loginForm");
 const loginMessage = document.getElementById("loginMessage");
 
@@ -244,7 +241,6 @@ if (loginForm) {
   });
 }
 
-/* DASHBOARD AUTH + LOAD */
 const dashboardMarker = document.getElementById("customerName");
 
 if (dashboardMarker) {
@@ -301,7 +297,6 @@ if (dashboardMarker) {
   }
 }
 
-/* PROFILE UPDATE */
 const profileForm = document.getElementById("profileForm");
 const profileMessage = document.getElementById("profileMessage");
 
@@ -336,7 +331,6 @@ if (profileForm) {
   });
 }
 
-/* TAG MESSAGE */
 const tagMessageForm = document.getElementById("tagMessageForm");
 const tagMessageInput = document.getElementById("tagMessageInput");
 const tagDisplayPreview = document.getElementById("tagDisplayPreview");
@@ -360,7 +354,6 @@ if (tagMessageForm) {
   });
 }
 
-/* RESET PROFILE */
 const resetProfileBtn = document.getElementById("resetProfileBtn");
 
 if (resetProfileBtn) {
@@ -396,7 +389,6 @@ if (resetProfileBtn) {
   });
 }
 
-/* TRACK OTHER TAG */
 const otherTagForm = document.getElementById("otherTagForm");
 
 if (otherTagForm) {
@@ -435,7 +427,6 @@ if (otherTagForm) {
   });
 }
 
-/* LOGOUT */
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
@@ -446,7 +437,6 @@ if (logoutBtn) {
   });
 }
 
-/* ADD TO CART */
 const addToCartBtn = document.getElementById("addToCartBtn");
 if (addToCartBtn) {
   addToCartBtn.addEventListener("click", function () {
@@ -454,7 +444,6 @@ if (addToCartBtn) {
   });
 }
 
-/* QUICK BUY NOW */
 const buyNowBtn = document.getElementById("buyNowBtn");
 if (buyNowBtn) {
   buyNowBtn.addEventListener("click", function () {
@@ -466,7 +455,6 @@ if (buyNowBtn) {
   });
 }
 
-/* BUY PAGE */
 const applePayBtn = document.getElementById("applePayBtn");
 const googlePayBtn = document.getElementById("googlePayBtn");
 const cardCheckoutForm = document.getElementById("cardCheckoutForm");
